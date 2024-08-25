@@ -9,7 +9,7 @@ const app = express();
 
 // Configuración básica de CORS
 app.use(cors({
-    origin: 'http://localhost:3001', // Reemplaza con el dominio de tu frontend en producción
+    origin: '*', 
 }));
 
 app.use(bodyParser.json());
