@@ -1,0 +1,5 @@
+# Ignorar el archivo .env que contiene credenciales y configuraciones sensibles
+.env
+
+# Ignorar la carpeta node_modules donde se instalan las dependencias
+node_modules/
