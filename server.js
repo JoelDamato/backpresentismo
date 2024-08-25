@@ -14,6 +14,11 @@ app.use(cors({
 
 app.use(bodyParser.json());
 
+// Ruta para la raíz (inicio) de la aplicación
+app.get('/', (req, res) => {
+    res.send('API de presentismo');
+});
+
 app.post('/submit-attendance', [
     check('employeeName').isString().notEmpty(),
     check('timestamp').isISO8601(),
