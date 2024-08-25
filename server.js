@@ -7,7 +7,11 @@ const { check, validationResult } = require('express-validator');
 
 const app = express();
 
-app.use(cors());
+// Configuración básica de CORS
+app.use(cors({
+    origin: 'http://localhost:3001', // Reemplaza con el dominio de tu frontend en producción
+}));
+
 app.use(bodyParser.json());
 
 app.post('/submit-attendance', [
