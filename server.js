@@ -36,6 +36,12 @@ app.post('/submit-attendance', [
     try {
         const geocodingUrl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=20&addressdetails=1`;
         const geocodingResponse = await fetch(geocodingUrl);
+
+        // Verificar si el tipo de contenido es JSON
+        if (!geocodingResponse.headers.get('content-type')?.includes('application/json')) {
+            throw new Error('La respuesta no es JSON. Verifica el límite de uso o si la API está disponible.');
+        }
+
         const geocodingData = await geocodingResponse.json();
 
         let locationName = 'Ubicación desconocida';
@@ -77,17 +83,17 @@ app.post('/submit-attendance', [
         const notionData = await notionResponse.json();
 
         if (!notionResponse.ok) {
-            console.error('Notion API error:', notionData);
-            throw new Error(`Error from Notion: ${notionResponse.statusText}`);
+            console.error('Error en la API de Notion:', notionData);
+            throw new Error(`Error de Notion: ${notionResponse.statusText}`);
         }
 
         res.status(200).json(notionData);
     } catch (error) {
         console.error('Error:', error);
-        res.status(500).json({ message: 'Failed to record attendance.', error: error.message });
+        res.status(500).json({ message: 'No se pudo registrar la asistencia.', error: error.message });
     }
 });
 
 app.listen(3000, () => {
-    console.log('Server running on https://localhost:3000');
+    console.log('Servidor corriendo en https://localhost:3000');
 });
