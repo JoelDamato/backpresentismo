@@ -35,7 +35,7 @@ app.post('/submit-attendance', [
             parent: { database_id: process.env.NOTION_DATABASE_ID },
             properties: {
                 'Nombre': {
-                    title: [{ text: { content: employeeName } }],
+                    select: { name: employeeName },  // Cambiado de title a select
                 },
                 'Fecha': {
                     date: { start: timestamp },
